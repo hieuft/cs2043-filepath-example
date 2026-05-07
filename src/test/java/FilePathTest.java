@@ -1,16 +1,16 @@
 import org.junit.jupiter.api.Test;
-import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FilePathTest {
 
   @Test
-  public void testFilePath_Hardcoded_FailsOnUnix() {
-    String badPath = "src\\test\\resources\\config.properties";
-    File configFile = new File(badPath);
+  public void testFilePath_Refactored_CrossPlatform() {
+    Path modernPath = Paths.get("src", "test", "resources", "config.properties");
 
-    System.out.println("Đang tìm file tại: " + configFile.getAbsolutePath());
-
-    assertTrue(configFile.exists(), "Không tìm thấy file cấu hình!");
+    System.out.println("Đường dẫn an toàn (NIO): " + modernPath.toAbsolutePath());
+    assertTrue(Files.exists(modernPath), "Không tìm thấy file (NIO)!");
   }
 }
